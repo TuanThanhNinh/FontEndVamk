@@ -1,0 +1,31 @@
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.pagination_wrapper {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fefcf3;
+    padding: 0.5rem;
+    border-radius: 8px;
+    i {
+        display: flex;
+        cursor: pointer;
+        padding: 0.5rem;
+    }
+
+    .page_num {
+        margin: 0 5px;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        cursor: pointer;
+
+        &.active {
+            background-color: #eae0da;
+        }
+    }
+}

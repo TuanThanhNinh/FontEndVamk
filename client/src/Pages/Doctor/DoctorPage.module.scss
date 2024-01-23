@@ -1,0 +1,30 @@
+.doctor_page {
+    background-color: var(--color-main-blue);
+    min-height: 100vh;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    position: relative;
+
+    h3 {
+        position: absolute;
+        padding: 2rem;
+        left: 0;
+    }
+}
+
+.table_container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 15rem;
+
+    h2 {
+        width: fit-content;
+        margin-bottom: 2rem;
+    }
+}
+
+.paginatio_wrapper {
+    text-align: end;
+}
