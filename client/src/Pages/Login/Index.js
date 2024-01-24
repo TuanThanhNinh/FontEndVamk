@@ -16,6 +16,7 @@ function LoginPage() {
 
     useEffect(() => {
         sessionStorage.removeItem("userToken");
+        localStorage.removeItem("fullPetsData");
     }, []);
 
     const formRef = useRef();
