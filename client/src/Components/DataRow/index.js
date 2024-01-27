@@ -9,7 +9,7 @@ function DataRow({ data }) {
     const lastVisit = data.visit[data.visit.length - 1];
 
     const handleOnClick = (id) => {
-        navigate(`/details/${id}`);
+        navigate(`/doctor/${id}`);
     };
 
     return (

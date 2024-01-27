@@ -18,13 +18,13 @@ function DataTable({ petsData }) {
     // console.log(petsData);
 
     useEffect(() => {
-        console.log(petsData);
+        // console.log(petsData);
         if (statusIsChecked) {
             setData(petsData.filter((pet) => pet.status == "alive"));
         } else {
             setData(petsData);
         }
-    }, [statusIsChecked]);
+    }, [statusIsChecked, petsData]);
 
     const petsPerPage = 7; //can modify to show how many pets per page
 

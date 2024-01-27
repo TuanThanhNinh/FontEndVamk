@@ -5,26 +5,92 @@ import { useParams } from "react-router-dom";
 import { usePetsContext } from "../../context/petsContext";
 import { useEffect, useState } from "react";
 
+import VisitModal from "../../Components/VisitModal";
+import UpdatePetDataModal from "../../Components/UpdatePetDataModal";
+
 const cx = classNames.bind(styles);
 
 function PetDetail() {
     const { fullPetsData } = usePetsContext();
-    const [pet, setPet] = useState();
-    const { id } = useParams();
+    const { petId } = useParams();
+    const [pet, setPet] = useState(
+        fullPetsData.filter((pet) => pet.id == petId)[0]
+    );
+
+    const [showVisitDetail, setShowVisitDetail] = useState(false);
+    const [showUpdatePetModal, setShowUpdatePetModal] = useState(false);
 
     useEffect(() => {
-        id && setPet(fullPetsData.filter((pet) => pet.id == id)[0]);
-    }, [id]);
+        const handleKeyPress = (event) => {
+            if (event.key === "Escape") {
+                setShowVisitDetail(false);
+                setShowUpdatePetModal(false);
+            }
+        };
+
+        // Add event listener when the component mounts
+        window.addEventListener("keydown", handleKeyPress);
+
+        // Cleanup: remove event listener when the component unmounts
+        return () => {
+            window.removeEventListener("keydown", handleKeyPress);
+        };
+    }, []);
+
+    const handleVisitClick = () => {
+        setShowVisitDetail(!showVisitDetail);
+    };
+
+    const handleComment = () => {
+        console.log("click cm btn");
+    };
 
     return (
-        <div>
-            {pet && (
-                <>
-                    <h1>Pet Detail</h1>
+        <div className={cx("wrapper")}>
+            <div className={cx("detail_card")}>
+                {pet && (
+                    <div>
+                        <h4>Pet Detail</h4>
+                        <p>Name: {pet.name}</p>
+                        <p>Owner ID: {pet.ownerId}</p>
+                        <p>Pet type: {pet.petType}</p>
+                        <p>Dob: {pet.dob}</p>
+                        <p>Status: {pet.status}</p>
+                        <p>
+                            Last Visit:{" "}
+                            {pet.visit.length > 0 ? (
+                                <>
+                                    {pet.visit[pet.visit.length - 1].date}{" "}
+                                    <i onClick={handleVisitClick}>
+                                        {!showVisitDetail ? (
+                                            <ion-icon name="caret-down-outline"></ion-icon>
+                                        ) : (
+                                            <ion-icon name="caret-up-outline"></ion-icon>
+                                        )}
+                                    </i>
+                                </>
+                            ) : (
+                                "havent visit "
+                            )}
+                        </p>
+                        {showVisitDetail && (
+                            <VisitModal
+                                infos={pet.visit}
+                                handleCloseModal={() =>
+                                    setShowVisitDetail(false)
+                                }
+                            />
+                        )}
 
-                    <p>Name: {pet.name}</p>
-                </>
-            )}
+                        <button onClick={() => setShowUpdatePetModal(true)}>
+                            edit pet info
+                        </button>
+                        {showUpdatePetModal && <UpdatePetDataModal />}
+
+                        {}
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

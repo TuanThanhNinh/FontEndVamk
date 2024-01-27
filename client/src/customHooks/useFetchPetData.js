@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 // import { useTokenContext } from "../context/tokenContext";
-import { fetchPetsData } from "../api";
+import { fetchPetData } from "../api";
 
 //custom hook to fetch pets data after got the authToken
-const useFetchPetsData = () => {
-    const [petsData, setPetsData] = useState(null);
+const useFetchPetData = ({ id }) => {
+    const [petData, setPetData] = useState(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -12,8 +12,8 @@ const useFetchPetsData = () => {
 
         const getPets = async () => {
             try {
-                const data = await fetchPetsData({ Token: authToken });
-                setPetsData(data);
+                const data = await fetchPetData({ Token: authToken, id: id });
+                setPetData(data);
                 // console.log(data);
             } catch (err) {
                 console.log(err);
@@ -25,7 +25,7 @@ const useFetchPetsData = () => {
     }, []);
 
     // Return the petsData and error state, i return the err incase we need to track the err in somewhere else
-    return { petsData, error };
+    return { petData, error };
 };
 
-export default useFetchPetsData;
+export default useFetchPetData;
