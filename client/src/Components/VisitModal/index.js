@@ -16,13 +16,13 @@ function VisitModal({ infos, handleCloseModal }) {
     });
 
     const petId = infos[0].petId;
-    console.log(petId);
+
 
     const sortedData = infos.sort(
         (a, b) => new Date(b.date) - new Date(a.date)
     );
 
-    console.log(infos);
+   
     const today = new Date();
     const dateStr = today.toISOString().split("T")[0]; // Format as YYYY-MM-DD
 

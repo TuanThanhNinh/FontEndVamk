@@ -4,6 +4,8 @@ import classNames from "classnames/bind";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { useTokenContext } from "../../context/tokenContext";
+
 import { fetchToken } from "../../api";
 
 const cx = classNames.bind(styles);
@@ -13,6 +15,8 @@ function LoginPage() {
 
     const [userAccount, setUserAccount] = useState({ email: "", password: "" });
     const [invalidInfo, setInvalidInfo] = useState(false);
+
+    const { userRole, setUserRole } = useTokenContext();
 
     useEffect(() => {
         sessionStorage.removeItem("userToken");
@@ -33,8 +37,10 @@ function LoginPage() {
 
             //because the response from server doesnt show which one is the doctor and which one is the normal user so i use this method to fix the current problem.
             if (userAccount.email.includes("doctor")) {
+                setUserRole("doctor");
                 navigate("/doctor");
             } else {
+                setUserRole("user");
                 navigate("/user");
             }
         } catch (err) {

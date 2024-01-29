@@ -18,7 +18,10 @@ function App() {
                             <Route index element={<DoctorPage />} />
                             <Route path=":petId" element={<PetDetail />} />
                         </Route>
-                        <Route path="user/*" element={<UserPage />}></Route>
+                        <Route path="user/*">
+                            <Route index element={<UserPage />} />
+                            <Route path=":petId" element={<PetDetail />} />
+                        </Route>
                     </Routes>
                 </PetsContextProvider>
             </TokenContextProvider>

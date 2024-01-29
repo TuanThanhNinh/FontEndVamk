@@ -1,12 +1,14 @@
 import styles from "./PetDetail.module.scss";
 import classNames from "classnames/bind";
 
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { usePetsContext } from "../../context/petsContext";
 import { useEffect, useState } from "react";
 
 import VisitModal from "../../Components/VisitModal";
 import UpdatePetDataModal from "../../Components/UpdatePetDataModal";
+
+import { useTokenContext } from "../../context/tokenContext";
 
 const cx = classNames.bind(styles);
 
@@ -16,6 +18,8 @@ function PetDetail() {
     const [pet, setPet] = useState(
         fullPetsData.filter((pet) => pet.id == petId)[0]
     );
+
+    const { userRole } = useTokenContext();
 
     const [showVisitDetail, setShowVisitDetail] = useState(false);
     const [showUpdatePetModal, setShowUpdatePetModal] = useState(false);
@@ -47,6 +51,9 @@ function PetDetail() {
 
     return (
         <div className={cx("wrapper")}>
+            <Link to="/doctor">
+                <button className={cx("back_btn")}>Back</button>
+            </Link>
             <div className={cx("detail_card")}>
                 {pet && (
                     <div>
@@ -82,9 +89,11 @@ function PetDetail() {
                             />
                         )}
 
-                        <button onClick={() => setShowUpdatePetModal(true)}>
-                            edit pet info
-                        </button>
+                        {userRole == "doctor" && (
+                            <button onClick={() => setShowUpdatePetModal(true)}>
+                                edit pet info
+                            </button>
+                        )}
                         {showUpdatePetModal && <UpdatePetDataModal />}
 
                         {}

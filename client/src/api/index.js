@@ -70,6 +70,7 @@ export const updatePetData = async ({ id, updateData }) => {
             headers: { Authorization: "Bearer " + authToken },
         });
 
+        
         return response.data;
     } catch (error) {
         console.log(error);

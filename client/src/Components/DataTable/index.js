@@ -15,8 +15,6 @@ function DataTable({ petsData }) {
     const [currentPage, setCurrentPage] = useState(1);
     const [data, setData] = useState(petsData);
 
-    // console.log(petsData);
-
     useEffect(() => {
         // console.log(petsData);
         if (statusIsChecked) {
@@ -89,6 +87,10 @@ function DataTable({ petsData }) {
                     />
                 )}
             </div>
+
+            <Link to="/">
+                <button className={cx("logout_btn")}>Log out</button>
+            </Link>
         </>
     );
 }
